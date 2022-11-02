@@ -1,0 +1,11 @@
+.carousel-overlay:after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 16px;
+    height: 100%;
+    width: 100%; 
+    background: linear-gradient(to right, #151515 0%, rgba(21, 21, 21, 0) 100%);
+}
