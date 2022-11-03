@@ -10,7 +10,7 @@ const Services = () => {
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
-  console.log(services);
+  // console.log(services);
   return (
     <div className="mt-10">
       <p className="text-orange-600 text-center font-bold">Service</p>

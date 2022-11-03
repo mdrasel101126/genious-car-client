@@ -21,12 +21,17 @@ const Header = () => {
       </li>
       <li>
         {user ? (
-          <button
-            onClick={handleLogOut}
-            className="btn btn-ghost font-semibold"
-          >
-            Logout
-          </button>
+          <>
+            <button
+              onClick={handleLogOut}
+              className="btn btn-ghost font-semibold"
+            >
+              Logout
+            </button>
+            <Link className="font-semibold" to="/orders">
+              Orders
+            </Link>
+          </>
         ) : (
           <Link className="font-semibold" to="/login">
             Login
