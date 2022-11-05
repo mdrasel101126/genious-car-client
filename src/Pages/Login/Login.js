@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/login/login.svg";
 import { AuthContext } from "../../Context/UserContext";
 
 const Login = () => {
   const { loginUser, googleSignUp } = useContext(AuthContext);
   const [error, setError] = useState("");
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
   const handleLoginSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -16,8 +19,27 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        const currentUser = {
+          email: user.email,
+        };
+        console.log(currentUser);
+        //get jwt token
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            //local storage is the easiest but not the best place to store jwt token
+            localStorage.setItem("genious-token", data.token);
+          });
         setError("");
         form.reset();
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorMessage = error.message;

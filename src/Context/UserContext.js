@@ -34,6 +34,7 @@ const UserContext = ({ children }) => {
   };
   const logOut = () => {
     setLoading(true);
+    localStorage.removeItem("genious-token");
     return signOut(auth);
   };
   useEffect(() => {
