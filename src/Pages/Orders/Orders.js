@@ -6,11 +6,14 @@ const Orders = () => {
   const { user, logOut } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5000/orders?email=${user?.email}`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("genious-token")}`,
-      },
-    })
+    fetch(
+      `https://genious-car-server-beta.vercel.app/orders?email=${user?.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("genious-token")}`,
+        },
+      }
+    )
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           return logOut();
@@ -27,7 +30,7 @@ const Orders = () => {
   const handleDeleteItem = (id) => {
     const proceed = window.confirm("Do you want to delete?");
     if (proceed) {
-      fetch(`http://localhost:5000/orders/${id}`, {
+      fetch(`https://genious-car-server-beta.vercel.app/orders/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -42,7 +45,7 @@ const Orders = () => {
     }
   };
   const handleStatusUpdate = (id) => {
-    fetch(`http://localhost:5000/orders/${id}`, {
+    fetch(`https://genious-car-server-beta.vercel.app/orders/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
